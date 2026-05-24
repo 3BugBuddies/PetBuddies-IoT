@@ -3,6 +3,7 @@
 
 PubSubClient
 MFRC522
+ArduinoJson
 DallasTemperature
 OneWire
 WiFi

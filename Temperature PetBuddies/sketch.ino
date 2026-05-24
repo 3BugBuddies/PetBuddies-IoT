@@ -15,13 +15,11 @@ const char* PASSWORD  = "";
 const char* MQTT_HOST = "mqtt3.thingspeak.com";
 const int   MQTT_PORT = 1883;
 
-const char* THINGSPEAK_CHANNEL_ID = "SEU_CHANNEL_ID_TEMPERATURA";
+const char* THINGSPEAK_CHANNEL_ID    = "SEU_CHANNEL_ID_TEMPERATURA";
 
-// Preencha com as credenciais do menu Devices > MQTT do ThingSpeak.
-// Nao e a mesma coisa que a Write API Key do canal.
 const char* MQTT_CLIENT_ID = "SEU_CLIENT_ID_MQTT";
 const char* MQTT_USER      = "SEU_USERNAME_MQTT";
-const char* MQTT_PASS      = "SUA_SENHA_MQTT";
+const char* MQTT_PASS      = "SUA_PASSWORD_MQTT";
 
 String topicPub;
 
@@ -93,8 +91,6 @@ void loop() {
     return;
   }
 
-  // Field1 = UID, Field2 = temperatura em Celsius.
-  // O horario fica no created_at do ThingSpeak.
   String payload = "field1=" + uid + "&field2=" + String(tempC, 2);
 
   bool publicado = mqtt.publish(topicPub.c_str(), payload.c_str());
