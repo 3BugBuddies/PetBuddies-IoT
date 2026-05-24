@@ -106,6 +106,10 @@ Funcionamento: quando a tag RFID é aproximada do leitor, o ESP32 captura o UID 
 field1 = UID
 field2 = recepcao
 ```
+Exemplo do formato do Circuito de Check-In:
+
+![Circuito Check-In](./Assets/Circuito%20CheckIn.png)
+
 
 ### Temperature PetBuddies
 
@@ -133,6 +137,9 @@ Funcionamento: quando a tag RFID é lida, o ESP32 também lê a temperatura e en
 field1 = UID
 field2 = temperatura
 ```
+Exemplo do formato do Circuito de Temperatura:
+
+![Circuito Temperature](./Assets/Circuito%20Temp.png)
 
 ## Configuração Para Fazer Funcionar
 
