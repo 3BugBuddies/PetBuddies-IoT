@@ -1,0 +1,326 @@
+[
+    {
+        "id": "42275fcd64cadcbd",
+        "type": "tab",
+        "label": "Fluxo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "be2ecd64a371a1ab",
+        "type": "mqtt in",
+        "z": "42275fcd64cadcbd",
+        "name": "Mqttin Temp",
+        "topic": "channels/3392736/subscribe",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "8eaf4994ab2dae0c",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 250,
+        "y": 220,
+        "wires": [
+            [
+                "3adac4d762e302c4",
+                "4c9a3da52d0ed8d1"
+            ]
+        ]
+    },
+    {
+        "id": "3adac4d762e302c4",
+        "type": "debug",
+        "z": "42275fcd64cadcbd",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "4e475a9114c5ad74",
+        "type": "mysql",
+        "z": "42275fcd64cadcbd",
+        "mydb": "5ecdbd745daa4754",
+        "name": "servidor-bugbuddies",
+        "x": 720,
+        "y": 220,
+        "wires": [
+            [
+                "3933b025076719fd"
+            ]
+        ]
+    },
+    {
+        "id": "3933b025076719fd",
+        "type": "debug",
+        "z": "42275fcd64cadcbd",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "4c9a3da52d0ed8d1",
+        "type": "change",
+        "z": "42275fcd64cadcbd",
+        "name": "Conversor Temp",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "INSERT INTO LeiturasPet (uid, temperatura, timestamp_ms) VALUES (?, ?, ?)",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\tpayload.field1, \tpayload.field2, \t$millis()\t]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 220,
+        "wires": [
+            [
+                "4e475a9114c5ad74",
+                "f26dc3cd3b6a6abb"
+            ]
+        ]
+    },
+    {
+        "id": "f26dc3cd3b6a6abb",
+        "type": "debug",
+        "z": "42275fcd64cadcbd",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "4282404d98060369",
+        "type": "mqtt in",
+        "z": "42275fcd64cadcbd",
+        "name": "Mqttin CheckIn",
+        "topic": "channels/3360067/subscribe",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "7895a61751809ecc",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 260,
+        "y": 600,
+        "wires": [
+            [
+                "918fd8ee7ddac05b",
+                "c5c4a2bc88ff54c1"
+            ]
+        ]
+    },
+    {
+        "id": "918fd8ee7ddac05b",
+        "type": "debug",
+        "z": "42275fcd64cadcbd",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "c5c4a2bc88ff54c1",
+        "type": "change",
+        "z": "42275fcd64cadcbd",
+        "name": "Conversor CheckIn",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "INSERT INTO CheckInPet (uid, local, data_checkin, hora_checkin) VALUES (?, ?, ?, ?)",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\tpayload.field1, \tpayload.field2, \t$fromMillis($millis(), '[Y0001]-[M01]-[D01]', '-0300'), \t$fromMillis($millis(), '[H01]:[m01]', '-0300')\t]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 490,
+        "y": 600,
+        "wires": [
+            [
+                "a22961ab38147963",
+                "eac4ba834b37a2d1"
+            ]
+        ]
+    },
+    {
+        "id": "a22961ab38147963",
+        "type": "debug",
+        "z": "42275fcd64cadcbd",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "eac4ba834b37a2d1",
+        "type": "mysql",
+        "z": "42275fcd64cadcbd",
+        "mydb": "5ecdbd745daa4754",
+        "name": "servidor-bugbuddies",
+        "x": 740,
+        "y": 600,
+        "wires": [
+            [
+                "b8a83d8d3b9092ba"
+            ]
+        ]
+    },
+    {
+        "id": "b8a83d8d3b9092ba",
+        "type": "debug",
+        "z": "42275fcd64cadcbd",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "8eaf4994ab2dae0c",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "mqtt3.thingspeak.com",
+        "port": 1883,
+        "clientid": "FygpAQA6DgMyNTIvNy8iMDY",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "5ecdbd745daa4754",
+        "type": "MySQLdatabase",
+        "name": "servidor",
+        "host": "kodama.proxy.rlwy.net",
+        "port": "32897",
+        "db": "railway",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "7895a61751809ecc",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "mqtt3.thingspeak.com",
+        "port": 1883,
+        "clientid": "MDkBMxYlGDcELR8iIzkwKCA",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]

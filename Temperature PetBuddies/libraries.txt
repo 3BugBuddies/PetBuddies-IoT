@@ -1,0 +1,8 @@
+# Wokwi Library List
+# See https://docs.wokwi.com/guides/libraries
+
+PubSubClient
+MFRC522
+DallasTemperature
+OneWire
+WiFi
